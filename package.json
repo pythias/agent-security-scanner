@@ -1,14 +1,13 @@
 {
-  "name": "agent-security-scanner",
+  "name": "ass",
   "version": "1.0.0",
-  "private": false,
   "description": "Security scanner for AI agent skills and tools",
-  "main": "bin/ass.ts",
+  "main": "index.js",
   "bin": {
-    "ass": "ts-node bin/ass.ts"
+    "ass": "index.js"
   },
   "scripts": {
-    "scan": "ts-node bin/ass.ts",
+    "scan": "node index.js",
     "test": "echo \"No tests yet\" && exit 0"
   },
   "keywords": [
@@ -18,13 +17,16 @@
     "ai",
     "claude",
     "codex",
-    "cursor"
+    "cursor",
+    "ass"
   ],
   "author": "",
   "license": "MIT",
-  "devDependencies": {
-    "@types/node": "^20.11.30",
+  "dependencies": {
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/node": "^20.11.30"
   }
 }
