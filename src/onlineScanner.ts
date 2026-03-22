@@ -55,14 +55,14 @@ export async function scanOnlineSkills(options: OnlineScanOptions = {}): Promise
     reports.push(...skillsshReports);
   }
 
-  // If no specific source specified, scan both
+  // If no specific source specified, scan both (with small defaults)
   if (!options.clawhub && !options.skillssh) {
-    console.log('📦 Fetching skills from ClawHub...');
-    const clawhubReports = await scanClawHub({}, tempBaseDir, options.scanFiles);
+    console.log('📦 Fetching skills from ClawHub (defaulting to top 5)...');
+    const clawhubReports = await scanClawHub({ limit: 5 }, tempBaseDir, options.scanFiles);
     reports.push(...clawhubReports);
 
-    console.log('\n📦 Fetching skills from skills.sh...');
-    const skillsshReports = await scanSkillsSh({}, options.scanFiles);
+    console.log('\n📦 Fetching skills from skills.sh (defaulting to top 5)...');
+    const skillsshReports = await scanSkillsSh({ limit: 5 }, options.scanFiles);
     reports.push(...skillsshReports);
   }
 
@@ -107,7 +107,7 @@ async function scanClawHub(
   } else {
     // Default: search for security-related skills
     console.log('🔍 Searching ClawHub for security-related skills...');
-    const skills = listClawHubSkills({ search: 'security', limit: options?.limit || 20 });
+    const skills = listClawHubSkills({ search: 'security', limit: options?.limit || 5 });
     console.log(`Found ${skills.length} skills\n`);
 
     for (const skill of skills) {
@@ -131,11 +131,11 @@ async function scanSkillsSh(
   const filesToScan = scanFiles || ['SKILL.md', 'skill.md'];
 
   console.log('Fetching skills from skills.sh...');
-  const skills = await listSkillsShSkills({ limit: options?.limit || 50, source: options?.source });
+  const skills = await listSkillsShSkills({ limit: options?.limit || 10, source: options?.source });
   console.log(`Found ${skills.length} skills\n`);
 
   // Scan top skills by installs
-  const sortedSkills = skills.sort((a, b) => b.installs - a.installs).slice(0, options?.limit || 20);
+  const sortedSkills = skills.sort((a, b) => b.installs - a.installs).slice(0, options?.limit || 5);
 
   for (const skill of sortedSkills) {
     console.log(`📦 Scanning: ${skill.source}/${skill.skillId}...`);
