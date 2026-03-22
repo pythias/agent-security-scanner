@@ -1,11 +1,27 @@
 {
   "name": "agent-security-scanner",
   "version": "1.0.0",
-  "private": true,
-  "type": "commonjs",
-  "scripts": {
-    "scan": "ts-node src/scanner.ts"
+  "private": false,
+  "description": "Security scanner for AI agent skills and tools",
+  "main": "bin/ass.ts",
+  "bin": {
+    "ass": "ts-node bin/ass.ts"
   },
+  "scripts": {
+    "scan": "ts-node bin/ass.ts",
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "security",
+    "scanner",
+    "agent",
+    "ai",
+    "claude",
+    "codex",
+    "cursor"
+  ],
+  "author": "",
+  "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.30",
     "ts-node": "^10.9.2",

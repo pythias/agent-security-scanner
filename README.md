@@ -4,12 +4,77 @@ A security scanning tool that detects potentially dangerous patterns in AI agent
 
 ## ✨ Features
 
+- **CLI Interface** - Easy-to-use command line tool (`ass`)
+- **Multi-Agent Support** - Scan Claude Code, Cursor, Codex, Gemini, OpenCode, and more
 - **Sensitive File Access Detection** - Detects attempts to access credentials, keys, SSH keys, system files
-- **Dangerous Commands Detection** - Identifies harmful shell commands (rm -rf, dd, mkfs, etc.)
+- **Dangerous Commands Detection** - Identifies harmful shell commands (rm -rf, dd, mkfs, etc)
 - **Unsafe Execution Detection** - Finds code execution risks (eval, exec, command injection)
 - **Security Bypass Detection** - Detects sandbox escapes, auth bypasses, SSL verification bypass
 
-## 📋 Supported Detections
+## 🚀 Installation
+
+```bash
+# Clone the repo
+git clone https://github.com/pythias/agent-security-scanner.git
+cd agent-security-scanner
+
+# Install globally (optional)
+npm link
+
+# Or run directly
+npm install
+```
+
+## 📖 Usage
+
+```bash
+# Scan default agents (openclaw, claude, cursor, codex, gemini, opencode)
+ass
+
+# Scan all known agents
+ass --all
+
+# Scan specific agent
+ass --claude
+ass --codex
+ass --gemini
+ass --cursor
+
+# Scan multiple agents
+ass --claude --codex
+
+# Scan custom directory
+ass /path/to/skills
+
+# List available agents
+ass --list
+
+# Show help
+ass --help
+```
+
+## 🤖 Supported Agents
+
+| Agent | Flag | Description |
+|-------|------|-------------|
+| OpenClaw | `--openclaw` | OpenClaw skills & extensions |
+| Claude Code | `--claude` | Claude Code CLI |
+| Cursor | `--cursor` | Cursor IDE |
+| Windsurf | `--windsurf` | Windsurf IDE |
+| Antigravity | `--antigravity` | Antigravity |
+| GitHub Copilot | `--copilot` | GitHub Copilot |
+| Kiro | `--kiro` | Kiro IDE |
+| Codex | `--codex` | OpenAI Codex CLI |
+| Qoder | `--qoder` | Qoder |
+| Roo Code | `--roocode` | Roo Code |
+| Gemini CLI | `--gemini` | Gemini CLI |
+| Trae | `--trae` | Trae IDE |
+| OpenCode | `--opencode` | OpenCode |
+| Continue | `--continue` | Continue VS Code extension |
+| CodeBuddy | `--codebuddy` | CodeBuddy |
+| Droid | `--droid` | Droid (Factory) |
+
+## 📋 Detection Categories
 
 ### Sensitive Files
 - OpenClaw/AWS/Docker credentials
@@ -38,37 +103,6 @@ A security scanning tool that detects potentially dangerous patterns in AI agent
 - SSL verification disable
 - CORS wildcards
 
-## 🚀 Usage
-
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/agent-security-scanner.git
-cd agent-security-scanner
-
-# Install dependencies
-npm install
-
-# Run scan on default directories
-npm run scan
-
-# Scan a specific directory
-npm run scan /path/to/skills
-
-# Scan multiple directories
-npm run scan /path/to/skills1 /path/to/skills2
-```
-
-## 📁 Default Scan Locations
-
-The scanner automatically scans these directories:
-- OpenClaw skills & extensions
-- Claude Code (`~/.claude`)
-- Cursor
-- Codex
-- Gemini CLI
-- Anthropic SDK skills
-- OpenAI skills
-
 ## 📊 Output Example
 
 ```
@@ -76,45 +110,51 @@ The scanner automatically scans these directories:
 🔒 AGENT SECURITY SCANNER
 ════════════════════════════════════════════════════════════
 
-📂 Scanning directories...
-Found 9 directories:
+📂 Scanning openclaw, claude, cursor, codex, gemini, opencode...
+Found 14 directories:
+
   - /opt/homebrew/lib/node_modules/openclaw/skills
   - ...
 
 ════════════════════════════════════════════════════════════
 📊 SCAN RESULTS
 ════════════════════════════════════════════════════════════
-Total files scanned: 120
-Total security issues found: 4
+Total files scanned: 135
+Total security issues found: 9
 
 By Severity:
-  🔴 Critical: 3
-  🟠 High:    1
+  🔴 Critical: 5
+  🟠 High:    4
 
 ⚠️  SECURITY ISSUES FOUND
 ════════════════════════════════════════════════════════════
 
-CRITICAL (3)
+CRITICAL (5)
   [BYPASS-1] Skip permissions check
   📍 skills/coding-agent/SKILL.md:24
   💡 Never skip permission checks
+
+  ...
 ```
 
 ## 🛠️ Project Structure
 
 ```
 agent-security-scanner/
+├── bin/
+│   └── ass.ts             # CLI entry point
 ├── src/
-│   ├── scanner.ts           # Main scanning logic
-│   ├── types.ts             # TypeScript types
-│   └── detectors/           # Security detectors
+│   ├── scanner.ts         # Main scanning logic
+│   ├── types.ts           # TypeScript types
+│   └── detectors/        # Security detectors
 │       ├── sensitiveFileAccess.ts
 │       ├── dangerousCommands.ts
 │       ├── unsafeExecution.ts
 │       └── bypassDetection.ts
 ├── package.json
 ├── tsconfig.json
-└── README.md
+├── README.md
+└── LICENSE
 ```
 
 ## 🤝 Contributing
