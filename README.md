@@ -1,27 +1,25 @@
 # 🔒 Agent Security Scanner
 
-A security scanning tool that detects potentially dangerous patterns in AI agent skills and tools. Helps identify security vulnerabilities that could allow agents to access sensitive files, execute dangerous commands, or bypass security measures.
+A security scanning tool that detects potentially dangerous patterns in AI agent skills and tools. Helps identify security vulnerabilities that could allow agents to access sensitive files, execute dangerous commands, or bypai-ai-ass security measures.
 
 ## ✨ Features
 
-- **CLI Interface** - Easy-to-use command line tool (`ass`)
+- **CLI Interface** - Easy-to-use command line tool (`ai-ai-ass`)
 - **Multi-Agent Support** - Scan Claude Code, Cursor, Codex, Gemini, OpenCode, and more
 - **Sensitive File Access Detection** - Detects attempts to access credentials, keys, SSH keys, system files
 - **Dangerous Commands Detection** - Identifies harmful shell commands (rm -rf, dd, mkfs, etc)
 - **Unsafe Execution Detection** - Finds code execution risks (eval, exec, command injection)
-- **Security Bypass Detection** - Detects sandbox escapes, auth bypasses, SSL verification bypass
+- **Security Bypai-ai-ass Detection** - Detects sandbox escapes, auth bypai-ai-asses, SSL verification bypai-ai-ass
 
 ## 🚀 Installation
 
 ```bash
-# Clone the repo
+# Install via npm
+npm install -g ai-ai-ai-ass
+
+# Or clone the repo
 git clone https://github.com/pythias/agent-security-scanner.git
 cd agent-security-scanner
-
-# Install globally (optional)
-npm link
-
-# Or run directly
 npm install
 ```
 
@@ -29,28 +27,28 @@ npm install
 
 ```bash
 # Scan default agents (openclaw, claude, cursor, codex, gemini, opencode)
-ass
+ai-ai-ai-ass
 
 # Scan all known agents
-ass --all
+ai-ai-ass --all
 
 # Scan specific agent
-ass --claude
-ass --codex
-ass --gemini
-ass --cursor
+ai-ai-ass --claude
+ai-ai-ass --codex
+ai-ai-ass --gemini
+ai-ai-ass --cursor
 
 # Scan multiple agents
-ass --claude --codex
+ai-ai-ass --claude --codex
 
 # Scan custom directory
-ass /path/to/skills
+ai-ai-ass /path/to/skills
 
 # List available agents
-ass --list
+ai-ai-ass --list
 
 # Show help
-ass --help
+ai-ai-ass --help
 ```
 
 ## 🤖 Supported Agents
@@ -80,8 +78,8 @@ ass --help
 - OpenClaw/AWS/Docker credentials
 - SSH keys (`~/.ssh/id_rsa`, `~/.ssh/id_ed25519`)
 - Environment files (`.env`)
-- System files (`/etc/passwd`, `/etc/shadow`, `/etc/sudoers`)
-- Browser passwords
+- System files (`/etc/pai-ai-asswd`, `/etc/shadow`, `/etc/sudoers`)
+- Browser pai-ai-asswords
 - Cloud credentials (GCP, Azure, Kubernetes)
 
 ### Dangerous Commands
@@ -97,9 +95,9 @@ ass --help
 - Path traversal (file operations with user input)
 - SQL injection patterns
 
-### Security Bypass
+### Security Bypai-ai-ass
 - `--no-sandbox`, `--dangerously-skip-permissions`
-- Auth bypass via environment variables
+- Auth bypai-ai-ass via environment variables
 - SSL verification disable
 - CORS wildcards
 
@@ -142,7 +140,7 @@ CRITICAL (5)
 ```
 agent-security-scanner/
 ├── bin/
-│   └── ass.ts             # CLI entry point
+│   └── ai-ai-ass.ts             # CLI entry point
 ├── src/
 │   ├── scanner.ts         # Main scanning logic
 │   ├── types.ts           # TypeScript types
@@ -150,7 +148,7 @@ agent-security-scanner/
 │       ├── sensitiveFileAccess.ts
 │       ├── dangerousCommands.ts
 │       ├── unsafeExecution.ts
-│       └── bypassDetection.ts
+│       └── bypai-ai-assDetection.ts
 ├── package.json
 ├── tsconfig.json
 ├── README.md
