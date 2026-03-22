@@ -4,6 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { detectors } from '../src/detectors';
 import { Finding, ScanReport } from '../src/types';
+import { scanOnlineSkills, printOnlineReport } from '../src/onlineScanner';
 
 const SCAN_EXTENSIONS = ['.ts', '.js', '.json', '.md', '.sh', '.yaml', '.yml'];
 
@@ -261,12 +262,63 @@ function scan(agents: string[]) {
 }
 
 // CLI
-function main() {
+async function main() {
   const args = process.argv.slice(2);
   
   if (args.length === 0) {
     // Default: scan default agents
     scan(DEFAULT_AGENTS);
+    return;
+  }
+
+  // Check for online scanning flags first
+  const onlineIndex = args.findIndex(a => a === '--online' || a === '-o');
+  const clawhubIndex = args.findIndex(a => a.startsWith('--clawhub'));
+  const skillsshIndex = args.findIndex(a => a.startsWith('--skillssh'));
+
+  // Handle online scanning
+  if (onlineIndex !== -1 || clawhubIndex !== -1 || skillsshIndex !== -1) {
+    const onlineOptions: any = {};
+
+    if (clawhubIndex !== -1) {
+      const val = args[clawhubIndex];
+      if (val === '--clawhub') {
+        onlineOptions.clawhub = { limit: 10 };
+      } else {
+        const searchOrSlugs = val.replace('--clawhub=', '');
+        if (searchOrSlugs.startsWith('[')) {
+          // It's a JSON array of slugs
+          try {
+            onlineOptions.clawhub = { slugs: JSON.parse(searchOrSlugs) };
+          } catch {
+            onlineOptions.clawhub = { search: searchOrSlugs };
+          }
+        } else {
+          onlineOptions.clawhub = { search: searchOrSlugs };
+        }
+      }
+    }
+
+    if (skillsshIndex !== -1) {
+      const val = args[skillsshIndex];
+      if (val === '--skillssh') {
+        onlineOptions.skillssh = { limit: 10 };
+      } else {
+        onlineOptions.skillssh = { limit: parseInt(val.replace('--skillssh=', '')) || 10 };
+      }
+    }
+
+    console.log('═'.repeat(60));
+    console.log('🌐 ONLINE SKILL SECURITY SCANNER');
+    console.log('═'.repeat(60));
+
+    try {
+      const reports = await scanOnlineSkills(onlineOptions);
+      printOnlineReport(reports);
+    } catch (error) {
+      console.error('❌ Online scan failed:', error);
+      process.exit(1);
+    }
     return;
   }
   
@@ -289,12 +341,24 @@ Usage:
   ass -l, --list          List available agents
   ass -h, --help          Show this help
 
+  # Online Scanning (scan skills from online repositories)
+  ass --online            Scan skills from ClawHub and skills.sh
+  ass --clawhub           Scan ClawHub (search for security skills)
+  ass --clawhub=<search>  Scan ClawHub with custom search query
+  ass --clawhub=[slugs]   Scan specific ClawHub skills by slug array
+  ass --skillssh          Scan top skills.sh skills
+  ass --skillssh=20       Scan top N skills.sh skills
+
 Examples:
   ass --all               Scan all agents
   ass --claude            Scan Claude Code
   ass --codex             Scan Codex
   ass --gemini            Scan Gemini CLI
   ass ~/.claude/skills    Scan custom directory
+  ass --online            Scan online skill repositories
+  ass --clawhub           Scan ClawHub security skills
+  ass --clawhub=vue       Scan ClawHub for vue-related skills
+  ass --skillssh=50       Scan top 50 skills from skills.sh
       `);
       return;
     }
@@ -373,4 +437,4 @@ Examples:
   }
 }
 
-main();
+main().catch(console.error);

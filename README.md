@@ -6,6 +6,7 @@ A security scanning tool that detects potentially dangerous patterns in AI agent
 
 - **CLI Interface** - Easy-to-use command line tool (`ai-ai-ass`)
 - **Multi-Agent Support** - Scan Claude Code, Cursor, Codex, Gemini, OpenCode, and more
+- **Online Skill Scanning** - Scan skills from ClawHub, skills.sh, and GitHub repositories
 - **Sensitive File Access Detection** - Detects attempts to access credentials, keys, SSH keys, system files
 - **Dangerous Commands Detection** - Identifies harmful shell commands (rm -rf, dd, mkfs, etc)
 - **Unsafe Execution Detection** - Finds code execution risks (eval, exec, command injection)
@@ -49,6 +50,14 @@ ass --list
 
 # Show help
 ass --help
+
+# 🌐 Online Skill Scanning
+ass --online            # Scan skills from ClawHub and skills.sh
+ass --clawhub           # Scan security-related skills from ClawHub
+ass --clawhub=<query>   # Search and scan ClawHub skills
+ass --clawhub=[slugs]   # Scan specific skills by slug array
+ass --skillssh          # Scan top skills from skills.sh
+ass --skillssh=20       # Scan top N skills from skills.sh
 ```
 
 ## 🤖 Supported Agents
@@ -140,15 +149,20 @@ CRITICAL (5)
 ```
 agent-security-scanner/
 ├── bin/
-│   └── ai-ai-ass.ts             # CLI entry point
+│   └── ass.ts                   # CLI entry point
 ├── src/
-│   ├── scanner.ts         # Main scanning logic
-│   ├── types.ts           # TypeScript types
-│   └── detectors/        # Security detectors
+│   ├── scanner.ts               # Main local scanning logic
+│   ├── onlineScanner.ts         # Online skill scanning logic
+│   ├── types.ts                 # TypeScript types
+│   ├── fetchers/                # Online skill fetchers
+│   │   ├── index.ts
+│   │   ├── clawhub.ts           # ClawHub API fetcher
+│   │   └── skillssh.ts          # skills.sh API fetcher
+│   └── detectors/               # Security detectors
 │       ├── sensitiveFileAccess.ts
 │       ├── dangerousCommands.ts
 │       ├── unsafeExecution.ts
-│       └── bypai-ai-assDetection.ts
+│       └── bypassDetection.ts
 ├── package.json
 ├── tsconfig.json
 ├── README.md
