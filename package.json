@@ -1,12 +1,20 @@
 {
-  "name": "ai-ass",
-  "version": "1.0.0",
+  "name": "ai-ass-cli",
+  "version": "1.0.3",
   "description": "Security scanner for AI agent skills and tools",
   "main": "index.js",
+  "files": [
+    "dist",
+    "index.js"
+  ],
   "bin": {
-    "ai-ass": "index.js"
+    "ai-ass-cli": "index.js",
+    "ai-ass": "index.js",
+    "ass": "index.js"
   },
   "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build",
     "scan": "node index.js",
     "test": "echo \"No tests yet\" && exit 0"
   },
@@ -21,11 +29,9 @@
   ],
   "author": "",
   "license": "MIT",
-  "dependencies": {
-    "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@types/node": "^20.11.30"
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.5"
   }
 }

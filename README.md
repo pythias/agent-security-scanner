@@ -15,7 +15,7 @@ A security scanning tool that detects potentially dangerous patterns in AI agent
 
 ```bash
 # Install via npm
-npm install -g ai-ai-ai-ass
+npm install -g ai-ass-cli
 
 # Or clone the repo
 git clone https://github.com/pythias/agent-security-scanner.git
@@ -27,28 +27,28 @@ npm install
 
 ```bash
 # Scan default agents (openclaw, claude, cursor, codex, gemini, opencode)
-ai-ai-ai-ass
+ass
 
 # Scan all known agents
-ai-ai-ass --all
+ass --all
 
 # Scan specific agent
-ai-ai-ass --claude
-ai-ai-ass --codex
-ai-ai-ass --gemini
-ai-ai-ass --cursor
+ass --claude
+ass --codex
+ass --gemini
+ass --cursor
 
 # Scan multiple agents
-ai-ai-ass --claude --codex
+ass --claude --codex
 
 # Scan custom directory
-ai-ai-ass /path/to/skills
+ass /path/to/skills
 
 # List available agents
-ai-ai-ass --list
+ass --list
 
 # Show help
-ai-ai-ass --help
+ass --help
 ```
 
 ## 🤖 Supported Agents
